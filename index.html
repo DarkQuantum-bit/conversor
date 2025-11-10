@@ -9,144 +9,326 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 1rem;
+            padding: 2rem 1rem;
         }
-        .container { max-width: 56rem; margin: 0 auto; }
-        .card { background: white; border-radius: 1rem; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); padding: 2rem; margin-bottom: 1.5rem; }
-        .header { text-align: center; margin-bottom: 2rem; }
-        .icon-circle { 
-            width: 4rem; height: 4rem; 
-            background: #e0e7ff; 
-            border-radius: 50%; 
-            display: inline-flex; 
-            align-items: center; 
-            justify-content: center;
-            margin-bottom: 1rem;
+        .container { max-width: 800px; margin: 0 auto; }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: white;
         }
-        h1 { font-size: 1.875rem; font-weight: 700; color: #1f2937; margin-bottom: 0.5rem; }
-        .subtitle { color: #6b7280; }
-        .upload-area {
-            border: 2px dashed #a5b4fc;
-            border-radius: 0.75rem;
-            padding: 3rem 1rem;
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .card { 
+            background: white; 
+            border-radius: 1.5rem; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3); 
+            padding: 2.5rem; 
+            margin-bottom: 1.5rem; 
+        }
+
+        .drop-zone {
+            border: 3px dashed #cbd5e0;
+            border-radius: 1rem;
+            padding: 3rem 2rem;
             text-align: center;
             cursor: pointer;
-            transition: all 0.2s;
-            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            background: #f7fafc;
+            margin-bottom: 2rem;
         }
-        .upload-area:hover { border-color: #6366f1; background: #eef2ff; }
-        .upload-text { color: #374151; font-weight: 500; margin-bottom: 0.5rem; }
-        .upload-subtext { color: #9ca3af; font-size: 0.75rem; }
-        .file-list { max-height: 24rem; overflow-y: auto; margin-bottom: 1.5rem; }
-        .file-item {
+        .drop-zone:hover,
+        .drop-zone.drag-over {
+            border-color: #667eea;
+            background: #edf2f7;
+            transform: translateY(-2px);
+        }
+        .drop-zone.drag-over {
+            border-color: #764ba2;
+            background: #e6fffa;
+        }
+        
+        .drop-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 1rem;
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            margin-bottom: 0.75rem;
+            justify-content: center;
         }
-        .file-info { display: flex; align-items: center; gap: 0.75rem; flex: 1; min-width: 0; }
-        .file-name { color: #374151; font-weight: 500; font-size: 0.875rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .file-error { color: #dc2626; font-size: 0.75rem; margin-top: 0.25rem; }
-        .file-actions { display: flex; gap: 0.5rem; margin-left: 1rem; }
+        
+        .drop-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        .drop-subtext {
+            color: #718096;
+            font-size: 0.95rem;
+        }
+
+        .file-list-container {
+            margin-bottom: 2rem;
+        }
+        
+        .file-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s;
+        }
+        .file-item:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .status-icon-wrapper {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: white;
+        }
+        
+        .file-info {
+            min-width: 0;
+        }
+        
+        .file-name {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 0.25rem;
+        }
+        
+        .file-status {
+            font-size: 0.85rem;
+            color: #718096;
+        }
+        
+        .file-error {
+            color: #e53e3e;
+            font-size: 0.85rem;
+        }
+        
+        .file-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            background: white;
+        }
+        .icon-btn:hover {
+            transform: scale(1.1);
+        }
+        .icon-btn.download {
+            background: #667eea;
+        }
+        .icon-btn.download:hover {
+            background: #5a67d8;
+        }
+        .icon-btn.remove {
+            background: #fc8181;
+        }
+        .icon-btn.remove:hover {
+            background: #f56565;
+        }
+
+        .buttons-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 1rem;
+        }
+        
         .btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 500;
+            padding: 1rem 2rem;
             border: none;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .btn-primary { background: #4f46e5; color: white; flex: 1; }
-        .btn-primary:hover:not(:disabled) { background: #4338ca; }
-        .btn-success { background: #059669; color: white; }
-        .btn-success:hover:not(:disabled) { background: #047857; }
-        .btn-secondary { background: #6b7280; color: white; }
-        .btn-secondary:hover:not(:disabled) { background: #4b5563; }
-        .btn-icon { 
-            padding: 0.5rem;
-            border: none;
-            background: none;
-            cursor: pointer;
-            border-radius: 0.5rem;
-            transition: all 0.2s;
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
-        .btn-icon:hover { background: #f3f4f6; }
-        .buttons-row { display: flex; gap: 0.75rem; }
-        .spinner { 
-            width: 1.25rem; height: 1.25rem; 
-            border: 2px solid #4f46e5; 
-            border-top-color: transparent; 
-            border-radius: 50%; 
-            animation: spin 0.6s linear infinite; 
+        .btn:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .status-icon { width: 1.25rem; height: 1.25rem; flex-shrink: 0; }
-        .info-box { background: white; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 1.5rem; }
-        .info-title { font-size: 1.125rem; font-weight: 600; color: #1f2937; margin-bottom: 0.75rem; }
-        .info-list { color: #6b7280; font-size: 0.875rem; list-style: none; }
-        .info-list li { margin-bottom: 0.5rem; }
+        
+        .btn-convert {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-download-all {
+            background: #48bb78;
+            color: white;
+        }
+        .btn-clear {
+            background: #718096;
+            color: white;
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid #667eea;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .info-box {
+            background: rgba(255,255,255,0.95);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+        .info-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+        .info-list {
+            list-style: none;
+            color: #4a5568;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+        .info-list li::before {
+            content: "✓ ";
+            color: #48bb78;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
         input[type="file"] { display: none; }
+
+        @media (max-width: 768px) {
+            .buttons-container {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="header">
+            <h1>🖼️ Conversor HEIC → PNG</h1>
+            <p>Arraste seus arquivos ou clique para selecionar</p>
+        </div>
+
         <div class="card">
-            <div class="header">
-                <div class="icon-circle">
-                    <svg width="32" height="32" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                        <polyline points="21 15 16 10 5 21"></polyline>
+            <div class="drop-zone" id="dropZone">
+                <div class="drop-icon">
+                    <svg width="40" height="40" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
                     </svg>
                 </div>
-                <h1>Conversor HEIC para PNG</h1>
-                <p class="subtitle">Converta seus arquivos HEIC/HEIF para PNG de forma rápida e segura</p>
+                <p class="drop-text">Arraste arquivos HEIC aqui</p>
+                <p class="drop-subtext">ou clique para selecionar do seu computador</p>
             </div>
-
-            <label class="upload-area" for="fileInput">
-                <svg width="48" height="48" fill="none" stroke="#a5b4fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="margin: 0 auto 1rem;">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="17 8 12 3 7 8"></polyline>
-                    <line x1="12" y1="3" x2="12" y2="15"></line>
-                </svg>
-                <p class="upload-text">Clique para selecionar arquivos</p>
-                <p class="upload-subtext">Suporta múltiplos arquivos HEIC/HEIF</p>
-            </label>
             <input type="file" id="fileInput" accept=".heic,.heif" multiple>
 
-            <div id="fileList"></div>
+            <div id="fileList" class="file-list-container"></div>
             <div id="buttons"></div>
         </div>
 
         <div class="info-box">
-            <h2 class="info-title">ℹ️ Sobre a conversão</h2>
+            <h2 class="info-title">🔒 Conversão 100% Segura e Privada</h2>
             <ul class="info-list">
-                <li>• Todos os arquivos são processados localmente no seu navegador</li>
-                <li>• Seus arquivos não são enviados para nenhum servidor</li>
-                <li>• Suporta conversão em lote de múltiplos arquivos</li>
-                <li>• Qualidade máxima preservada na conversão</li>
+                <li>Processamento local no seu navegador</li>
+                <li>Nenhum arquivo é enviado para servidores</li>
+                <li>Conversão em lote de múltiplos arquivos</li>
+                <li>Qualidade máxima preservada (PNG sem perdas)</li>
             </ul>
         </div>
     </div>
 
-    <script type="module">
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+    <script>
         let files = [];
         let converting = false;
 
+        const dropZone = document.getElementById('dropZone');
         const fileInput = document.getElementById('fileInput');
         const fileListEl = document.getElementById('fileList');
         const buttonsEl = document.getElementById('buttons');
 
-        fileInput.addEventListener('change', (e) => {
-            const selectedFiles = Array.from(e.target.files);
-            const heicFiles = selectedFiles.filter(file => 
+        // Click to upload
+        dropZone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        // Drag and drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('drag-over');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        function handleFiles(selectedFiles) {
+            const heicFiles = Array.from(selectedFiles).filter(file => 
                 file.name.toLowerCase().endsWith('.heic') || 
                 file.name.toLowerCase().endsWith('.heif')
             );
@@ -163,9 +345,13 @@
             files = [...files, ...newFiles];
             render();
             fileInput.value = '';
-        });
+        }
 
         function removeFile(id) {
+            const file = files.find(f => f.id === id);
+            if (file && file.convertedUrl) {
+                URL.revokeObjectURL(file.convertedUrl);
+            }
             files = files.filter(f => f.id !== id);
             render();
         }
@@ -181,8 +367,6 @@
                 render();
 
                 try {
-                    const heic2any = (await import('https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js')).default;
-                    
                     const convertedBlob = await heic2any({
                         blob: files[i].file,
                         toType: 'image/png',
@@ -198,7 +382,7 @@
                 } catch (error) {
                     console.error('Erro:', error);
                     files[i].status = 'error';
-                    files[i].error = error.message;
+                    files[i].error = error.message || 'Erro ao converter arquivo';
                 }
                 render();
             }
@@ -233,6 +417,33 @@
             render();
         }
 
+        function getStatusDisplay(file) {
+            if (file.status === 'pending') {
+                return {
+                    icon: '<div style="width:24px;height:24px;border-radius:50%;border:3px solid #cbd5e0"></div>',
+                    text: 'Aguardando...'
+                };
+            }
+            if (file.status === 'converting') {
+                return {
+                    icon: '<div class="spinner"></div>',
+                    text: 'Convertendo...'
+                };
+            }
+            if (file.status === 'converted') {
+                return {
+                    icon: '<svg width="24" height="24" fill="none" stroke="#48bb78" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>',
+                    text: 'Convertido!'
+                };
+            }
+            if (file.status === 'error') {
+                return {
+                    icon: '<svg width="24" height="24" fill="none" stroke="#e53e3e" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>',
+                    text: file.error
+                };
+            }
+        }
+
         function render() {
             const convertedCount = files.filter(f => f.status === 'converted').length;
 
@@ -242,60 +453,64 @@
                 return;
             }
 
-            fileListEl.innerHTML = `<div class="file-list">${files.map(file => `
-                <div class="file-item">
-                    <div class="file-info">
-                        ${file.status === 'pending' ? '<div class="status-icon" style="width:1.25rem;height:1.25rem;border-radius:50%;border:2px solid #d1d5db"></div>' : ''}
-                        ${file.status === 'converting' ? '<div class="spinner"></div>' : ''}
-                        ${file.status === 'converted' ? '<svg class="status-icon" fill="none" stroke="#10b981" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>' : ''}
-                        ${file.status === 'error' ? '<svg class="status-icon" fill="none" stroke="#ef4444" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>' : ''}
-                        <div style="flex:1;min-width:0">
-                            <p class="file-name">${file.name}</p>
-                            ${file.status === 'error' ? `<p class="file-error">Erro: ${file.error}</p>` : ''}
+            fileListEl.innerHTML = files.map(file => {
+                const status = getStatusDisplay(file);
+                return `
+                    <div class="file-item">
+                        <div class="status-icon-wrapper">
+                            ${status.icon}
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">${file.name}</div>
+                            <div class="${file.status === 'error' ? 'file-error' : 'file-status'}">${status.text}</div>
+                        </div>
+                        <div class="file-actions">
+                            ${file.status === 'converted' ? `
+                                <button class="icon-btn download" onclick="handleDownload('${file.id}')" title="Baixar PNG">
+                                    <svg width="20" height="20" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                    </svg>
+                                </button>
+                            ` : ''}
+                            ${!converting ? `
+                                <button class="icon-btn remove" onclick="handleRemove('${file.id}')" title="Remover">
+                                    <svg width="20" height="20" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+                            ` : ''}
                         </div>
                     </div>
-                    <div class="file-actions">
-                        ${file.status === 'converted' ? `
-                            <button class="btn-icon" onclick="window.downloadFile('${file.id}')" title="Baixar">
-                                <svg width="20" height="20" fill="none" stroke="#4f46e5" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                                </svg>
-                            </button>
-                        ` : ''}
-                        ${!converting ? `
-                            <button class="btn-icon" onclick="window.removeFile('${file.id}')" title="Remover">
-                                <svg width="20" height="20" fill="none" stroke="#dc2626" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                            </button>
-                        ` : ''}
-                    </div>
-                </div>
-            `).join('')}</div>`;
+                `;
+            }).join('');
 
-            buttonsEl.innerHTML = `<div class="buttons-row">
-                <button class="btn btn-primary" onclick="window.convertFiles()" ${converting || files.every(f => f.status === 'converted') ? 'disabled' : ''}>
-                    ${converting ? 'Convertendo...' : 'Converter Arquivos'}
-                </button>
-                ${convertedCount > 0 ? `
-                    <button class="btn btn-success" onclick="window.downloadAll()" ${converting ? 'disabled' : ''}>
-                        Baixar Todos (${convertedCount})
+            buttonsEl.innerHTML = `
+                <div class="buttons-container">
+                    <button class="btn btn-convert" onclick="convertFiles()" ${converting || files.every(f => f.status === 'converted') ? 'disabled' : ''}>
+                        ${converting ? '⏳ Convertendo...' : '🚀 Converter Arquivos'}
                     </button>
-                ` : ''}
-                <button class="btn btn-secondary" onclick="window.clearAll()" ${converting ? 'disabled' : ''}>
-                    Limpar
-                </button>
-            </div>`;
+                    ${convertedCount > 0 ? `
+                        <button class="btn btn-download-all" onclick="downloadAll()" ${converting ? 'disabled' : ''}>
+                            📥 Baixar (${convertedCount})
+                        </button>
+                    ` : '<div></div>'}
+                    <button class="btn btn-clear" onclick="clearAll()" ${converting ? 'disabled' : ''}>
+                        🗑️ Limpar
+                    </button>
+                </div>
+            `;
         }
 
-        window.removeFile = (id) => removeFile(id);
-        window.downloadFile = (id) => {
+        function handleRemove(id) {
+            removeFile(id);
+        }
+
+        function handleDownload(id) {
             const file = files.find(f => f.id === id);
             if (file) downloadFile(file);
-        };
-        window.convertFiles = convertFiles;
-        window.downloadAll = downloadAll;
-        window.clearAll = clearAll;
+        }
+
+        render();
     </script>
 </body>
 </html>
