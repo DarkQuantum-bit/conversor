@@ -477,15 +477,15 @@
             buttonsEl.innerHTML = `
                 <div class="buttons-container">
                     <button class="btn btn-convert" onclick="convertFiles()" ${converting || files.every(f => f.status === 'converted') ? 'disabled' : ''}>
-                        ${converting ? '⏳ Convertendo...' : '🚀 Converter Arquivos'}
+                        ${converting ? 'Convertendo...' : 'Converter Arquivos'}
                     </button>
                     ${convertedCount > 0 ? `
                         <button class="btn btn-download-all" onclick="downloadAll()" ${converting ? 'disabled' : ''}>
-                            📥 Baixar (${convertedCount})
+                            Baixar (${convertedCount})
                         </button>
                     ` : '<div></div>'}
                     <button class="btn btn-clear" onclick="clearAll()" ${converting ? 'disabled' : ''}>
-                        🗑️ Limpar
+                        Limpar
                     </button>
                 </div>
             `;
@@ -504,4 +504,5 @@
     </script>
 </body>
 </html>
+
 
